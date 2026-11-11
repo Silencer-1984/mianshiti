@@ -1,0 +1,22 @@
+# 依赖
+node_modules/
+.pnpm-store/
+
+# 构建产物与缓存
+dist/
+**/.vitepress/cache/
+**/.vitepress/dist/
+
+# 本机构建临时目录（避开系统 TEMP 被安全软件锁定）
+_tmp/
+
+# WorkBuddy 项目数据（不推到公开仓库）
+.workbuddy/
+
+# 日志与编辑器
+*.log
+npm-debug.log*
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/
