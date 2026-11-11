@@ -6,6 +6,7 @@ node_modules/
 dist/
 **/.vitepress/cache/
 **/.vitepress/dist/
+**/.vitepress/.temp/
 
 # 本机构建临时目录（避开系统 TEMP 被安全软件锁定）
 _tmp/

@@ -1,0 +1,23 @@
+/* 题目与答案分段后，给题目段落加卡片样式。
+   题目段落形如 <p><strong>62. 题干（公司）</strong></p>，
+   :has(> strong:only-child) 只命中「整段唯一加粗」的段落，
+   答案里的行内加粗（<p>...<strong>词</strong>...</p>）不受影响。 */
+
+.vp-doc p:has(> strong:only-child) {
+  margin: 1.75em 0 0;
+  padding: 0.65em 0.9em;
+  border-left: 3px solid var(--vp-c-brand-1);
+  border-radius: 0 6px 6px 0;
+  background: var(--vp-c-bg-soft);
+  line-height: 1.65;
+}
+
+.vp-doc p:has(> strong:only-child) strong {
+  font-weight: 600;
+  color: var(--vp-c-text-1);
+}
+
+/* 紧跟题目的答案段落，收窄与题目的间距，形成一组问答 */
+.vp-doc p:has(> strong:only-child) + p {
+  margin-top: 0.7em;
+}

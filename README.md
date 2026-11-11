@@ -18,6 +18,8 @@ npm run docs:serve   # 构建 + 预览（一条命令，推荐）
 
 - 根目录三个 `*.md`：题库正文，**原地不动**，直接作为站点页面
 - `.vitepress/config.mts`：站点配置（短路径映射、中文搜索分词、侧边栏、产物路径）
+- `.vitepress/theme/`：自定义主题，问答卡片的 CSS 在这里
+- `scripts/normalize-qa.mjs`：题库排版规范化脚本（幂等）
 - `index.md`：首页
 - `public/`：favicon 与 `.nojekyll`
 - `.github/workflows/deploy.yml`：GitHub Actions 自动构建发布
@@ -25,6 +27,18 @@ npm run docs:serve   # 构建 + 预览（一条命令，推荐）
 
 文件名带中文和空格，通过 `rewrites` 映射成 `/ai-agent.html`、`/python.html`、`/react.html`，源文件不用改名。
 `srcExclude` 排除了 `README.md`、`.workbuddy/`、`.github/`、`node_modules/`、`dist/`，避免把非题库内容扫成页面。
+
+## 题库排版约定
+
+题目行是独立加粗段落 `**1. 题干（公司）**`，答案另起一段，**中间必须留一个空行**。Markdown 里单个换行只是软换行、仍属于同一段落，不空行就会渲染成 `<p><strong>题目</strong> 答案…</p>`，视觉上黏成一段。
+
+三个题库已用脚本统一处理过 539 处（151 + 201 + 187）：
+
+```bash
+node scripts/normalize-qa.mjs   # 幂等，可重复执行；自动跳过 README.md / index.md
+```
+
+新增或粘贴题目后跑一次即可；脚本只插空行，不改任何正文。题目段落的卡片样式在 `.vitepress/theme/style.css`，用 `.vp-doc p:has(> strong:only-child)` 精确命中「整段只有一个加粗」的段落，答案里的行内加粗（如 `**单向数据流**`）不会被误伤。
 
 ## 部署到 GitHub Pages
 
